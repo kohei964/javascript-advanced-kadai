@@ -11,6 +11,8 @@ const typedField = document.getElementById('typed');
 const wrap = document.getElementById('wrap');
 const timeStart = document.getElementById('start');
 
+
+
 //テキストを格納する配列
 const textLists = [
     'Hello World','This is my App','How are you?',
@@ -45,7 +47,8 @@ const createText = () => {
 
 
 
-//　キー入力の判定
+
+//　== キー入力の判定
 const keyPress = e => {
 
     //== 誤った文字がタイプされた場合
@@ -63,8 +66,11 @@ const keyPress = e => {
 
 
     //== 正しい文字がタイプされた場合
+
     //スコアのインクリメント
     score++;
+    correctCount++;
+    numberOfTimes();
 
     //変数「unTyed」の先頭文字を取得、変数「typed」の後ろに代入 
     typed = typed + unTyped.substring(0,1);
@@ -83,9 +89,20 @@ const keyPress = e => {
     if(unTyped === '' ) {
         createText();
     }
+
 };
 
+//== 現在のタイプ数を表示=============================================================================
+    
+    //タイプ数をカウントする変数
+    let correctCount = 0;
 
+    const numberOfTimes = () =>{
+        const typeTimes =document.getElementById('type-times');
+        typeTimes.textContent = correctCount;
+    };
+
+//=================================================================================================
 
 
 
@@ -135,12 +152,6 @@ const gameOver = id => {
     }
 };
 
-
-
-
-
-
-
 //== カウントダウンタイマー
 const timer = () => {
     //タイマー部分の「p要素」を取得
@@ -159,6 +170,7 @@ const timer = () => {
 };
 
 
+
 //== スタートボタンを押した時の処理
 timeStart.addEventListener('click',()=>{
     //タイマーを開始
@@ -175,3 +187,5 @@ timeStart.addEventListener('click',()=>{
 });
 
 unTypedField.textContent = 'スタートボタンで開始';
+
+

@@ -11,6 +11,13 @@ body {
     color: #888;
 }
 
+/*タイピングの回数*/
+.type-times {
+    margin: 0;
+    font-weight: bold;
+    color: #888;
+}
+
 /*== テキストの表示 ==*/
 .wrap {
     margin-top: 20px;
