@@ -43,6 +43,8 @@ const createText = () => {
     //配列からランダムな数値を生成
     unTyped = textLists[randomNum];
     unTypedField.textContent = unTyped;
+
+    
 };
 
 
@@ -69,8 +71,10 @@ const keyPress = e => {
 
     //スコアのインクリメント
     score++;
+
+    //タイプ数のインクリメント
     correctCount++;
-    numberOfTimes();
+    numberOfTimes();  //関数の呼び出し
 
     //変数「unTyed」の先頭文字を取得、変数「typed」の後ろに代入 
     typed = typed + unTyped.substring(0,1);
@@ -92,8 +96,11 @@ const keyPress = e => {
 
 };
 
-//== 現在のタイプ数を表示=============================================================================
-    
+
+
+
+//== 現在のタイプ数を表示
+
     //タイプ数をカウントする変数
     let correctCount = 0;
 
@@ -101,13 +108,6 @@ const keyPress = e => {
         const typeTimes =document.getElementById('type-times');
         typeTimes.textContent = correctCount;
     };
-
-//=================================================================================================
-
-
-
-
-
 
 
 //== タイピングスキルランクを判定
@@ -134,16 +134,14 @@ const rankCheck = score => {
 
     //生成したメッセージを、文字列を一緒に返す
     return`${score}文字打てました！\n ${resultText}\n 【OK】 リトライ / 【キャンセル】終了`;
+
 };
-
-
 
 
 
 //==  ゲームを終了
 const gameOver = id => {
-    clearInterval(id);
-
+    //clearInterval(id);    ※
     const result = confirm(rankCheck(score));
 
     //OKボタンをクリックされたらリロード
@@ -152,22 +150,50 @@ const gameOver = id => {
     }
 };
 
+
+
+
+
 //== カウントダウンタイマー
 const timer = () => {
     //タイマー部分の「p要素」を取得
-    let time = count.textContent;
+    let time = count.textContent;    
+
 
     const id = setInterval(()=>{
         //カウントダウンする
         time--;
         count.textContent = time;
 
-        //カウントが0になったらタイマーを停止する
+    //カウントが0になったらタイマーを停止する
         if(time <= 0){
-            gameOver(id);
+            //追加 0になったらタイムアップと表示　======================
+            unTypedField.textContent = ('タイムアップ！');
+            typedField.style.display= 'none';         
+            clearInterval(id); //タイマーとめる
+
+            //=== 1秒後に表示==================================================
+            setTimeout(()=>{
+                gameOver(id);
+            },1000);
+
+        }
+        },1000);
+
+
+
+/*
+        //カウントが0になったらタイマーを停止する　　　　※
+        if(time <= 0){
+            gameOver(id);  
         }
     },1000);
+
+    */
 };
+
+
+
 
 
 
@@ -184,8 +210,13 @@ timeStart.addEventListener('click',()=>{
 
     //キーボードのイベント処理
     document.addEventListener('keypress',keyPress);
+
 });
 
+
+
+
 unTypedField.textContent = 'スタートボタンで開始';
+
 
 
